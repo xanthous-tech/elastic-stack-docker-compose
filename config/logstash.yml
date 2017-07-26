@@ -1,0 +1,8 @@
+# https://www.elastic.co/guide/en/logstash/current/logstash-settings-file.html
+
+node.name: "logstash_main"
+
+pipeline:
+  batch:
+    size: 1000
+    delay: 10

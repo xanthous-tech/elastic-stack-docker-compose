@@ -1,3 +1,4 @@
-es-data/
-es-logs/
-
+elasticsearch-data/
+filebeat-data/
+logstash-data/
+logs/

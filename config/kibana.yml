@@ -1,0 +1,10 @@
+## https://www.elastic.co/guide/en/kibana/current/settings.html
+
+## this is copied from https://github.com/elastic/kibana-docker/blob/master/build/kibana/config/kibana.yml for now
+
+server.name: kibana
+server.host: "0"
+elasticsearch.url: http://elasticsearch:9200
+elasticsearch.username: elastic
+elasticsearch.password: changeme
+xpack.monitoring.ui.container.elasticsearch.enabled: true
