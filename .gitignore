@@ -2,3 +2,4 @@ elasticsearch-data/
 filebeat-data/
 logstash-data/
 logs/
+.DS_Store
