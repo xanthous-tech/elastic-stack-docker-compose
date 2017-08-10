@@ -18,6 +18,10 @@ Elasticsearch is a data store and search engine that does most of the heavy lift
 
 The configuration for Elasticsearch is quite complex, but the default settings can serve most of the needs if the data size is not too large. When the scale gets bigger, I will provide more info and reference as we go. For now I will just give a sample configuration and reference manual [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/settings.html).
 
+### Important Note for Configuring Elasticsearch in Production
+
+There is a gotcha where in production systems, `vm.max_map_count` needs to set to 262144 in order to be able to start Elasticsearch Instance, since by default it is doing a memory bootstrap check, and requires to increase the limits for mmap counts. See more [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html) and [here (under `Running ES from the command line -> Production mode` section)](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
+
 ## Kibana
 Kibana is a log viewer web interface written in node.js. It provides UI to query Elasticsearch and gives powerful charting and dashboarding features for users to view the logs in different ways. 
 
