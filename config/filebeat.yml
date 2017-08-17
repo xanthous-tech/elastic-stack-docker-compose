@@ -1,5 +1,13 @@
 # https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-configuration-details.html
 
+# we can use environment variables in filebeat configuration:
+# https://www.elastic.co/guide/en/beats/filebeat/current/using-environ-vars.html
+
+# setting the name of the beat to HOST_NAME variable, if env var is not found, an error will be thrown
+name: ${HOST_NAME:?You need to set the HOST_NAME envrironment variable}
+
+queue_size: 4096
+
 # https://www.elastic.co/guide/en/beats/filebeat/current/configuration-global-options.html
 filebeat.spool_size: 2048
 filebeat.idle_timeout: 30s
@@ -11,8 +19,14 @@ filebeat.prospectors:
     - /mnt/log/*.log
   tags: ["winston"]  ## tags for the records
   fields:
-    instance_id: "service_1" ## add extra metadata
+    instance_id: '${HOST_NAME}' ## add extra metadata
 
 # https://www.elastic.co/guide/en/beats/filebeat/current/logstash-output.html
 output.logstash:
   hosts: ["logstash:5044"]
+  bulk_max_size: 4096
+  timeout: 180
+  max_retries: 5
+
+# securing logstash and filebeat using SSL
+# https://www.elastic.co/guide/en/beats/filebeat/current/securing-filebeat.html
