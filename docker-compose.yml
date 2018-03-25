@@ -12,6 +12,7 @@ services:
     image: "docker.elastic.co/logstash/logstash:5.5.1"
     volumes:
       - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./config/profile_template.json:/usr/share/logstash/config/profile_template.json
       - ./config/logstash-pipeline:/usr/share/logstash/pipeline/  ## this is the pipeline config location
       - logstashdata:/usr/share/logstash/data
     environment:
