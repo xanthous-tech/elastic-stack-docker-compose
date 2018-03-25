@@ -1,0 +1,487 @@
+{
+  "template": "lionstep-profile-*",
+  "settings": {
+    "number_of_shards": 1,
+    "analysis": {
+      "filter": {
+        "english_stop": {
+          "type": "stop",
+          "stopwords": "_english_"
+        },
+        "english_stemmer": {
+          "type": "stemmer",
+          "language": "english"
+        },
+        "english_possessive_stemmer": {
+          "type": "stemmer",
+          "language": "possessive_english"
+        },
+        "german_stop": {
+          "type": "stop",
+          "stopwords": "_german_"
+        },
+        "german_stemmer": {
+          "type": "stemmer",
+          "language": "light_german"
+        }
+      },
+      "analyzer": {
+        "english_and_german": {
+          "tokenizer": "standard",
+          "filter": [
+            "english_possessive_stemmer",
+            "lowercase",
+            "english_stop",
+            "english_stemmer",
+            "german_stop",
+            "german_stemmer"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "profile": {
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "@version": {
+          "type": "keyword"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "prepared": {
+          "type": "nested",
+          "properties": {
+            "admin_area_large": {
+              "type": "keyword"
+            },
+            "admin_area_small": {
+              "type": "keyword"
+            },
+            "age": {
+              "type": "byte",
+              "ignore_malformed": true
+            },
+            "candidate_id": {
+              "type": "keyword"
+            },
+            "city": {
+              "type": "keyword"
+            },
+            "country": {
+              "type": "keyword"
+            },
+            "gender": {
+              "type": "keyword"
+            },
+            "imported": {
+              "type": "boolean"
+            },
+            "industry_cluster": {
+              "type": "keyword"
+            },
+            "last_title_cluster1": {
+              "type": "keyword"
+            },
+            "last_title_cluster2": {
+              "type": "keyword"
+            },
+            "lat": {
+              "type": "float"
+            },
+            "lon": {
+              "type": "float"
+            },
+            "seniority": {
+              "type": "keyword"
+            },
+            "seniority_cluster": {
+              "type": "keyword"
+            },
+            "skill_cluster1": {
+              "type": "keyword"
+            },
+            "skill_cluster2": {
+              "type": "keyword"
+            },
+            "standard_experience": {
+              "type": "nested",
+              "properties": {
+                "company_size_mid": {
+                  "type": "keyword"
+                },
+                "end_year": {
+                  "type": "keyword"
+                },
+                "index": {
+                  "type": "boolean"
+                },
+                "industry_mid": {
+                  "type": "keyword"
+                },
+                "language": {
+                  "type": "keyword"
+                },
+                "start_year": {
+                  "type": "keyword"
+                },
+                "title_mid": {
+                  "type": "keyword"
+                },
+                "tmp_end": {
+                  "type": "short"
+                },
+                "tmp_start": {
+                  "type": "short"
+                },
+                "work_years": {
+                  "type": "byte"
+                }
+              }
+            },
+            "standard_languages": {
+              "type": "nested",
+              "properties": {
+                "mid": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "standard_last_title": {
+              "type": "keyword"
+            },
+            "standard_skills": {
+              "type": "nested",
+              "properties": {
+                "level": {
+                  "type": "float"
+                },
+                "mid": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "raw": {
+          "type": "nested",
+          "properties": {
+            "certifications": {
+              "type": "nested",
+              "properties": {
+                "certificate_authority": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "end": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "license": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "start": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "title": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                }
+              }
+            },
+            "courses": {
+              "type": "nested",
+              "properties": {
+                "competencies": {
+                  "properties": {
+                    "name": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    }
+                  }
+                },
+                "organization": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                }
+              }
+            },
+            "education": {
+              "type": "nested",
+              "properties": {
+                "degree": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "degrees": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "end": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "grade": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "major": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "name": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "profile_url": {
+                  "type": "keyword"
+                },
+                "start": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "summary": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                }
+              },
+              "experience": {
+                "type": "nested",
+                "properties": {
+                  "description": {
+                    "type": "text",
+                    "analyzer": "english_and_german"
+                  },
+                  "duration": {
+                    "type": "text",
+                    "analyzer": "english_and_german"
+                  },
+                  "end": {
+                    "type": "text",
+                    "analyzer": "english_and_german"
+                  },
+                  "location": {
+                    "type": "text",
+                    "analyzer": "english_and_german"
+                  },
+                  "organization": {
+                    "type": "nested",
+                    "properties": {
+                      "name": {
+                        "type": "text",
+                        "analyzer": "english_and_german"
+                      },
+                      "profile_url": {
+                        "type": "keyword"
+                      },
+                      "unique_id": {
+                        "type": "keyword"
+                      }
+                    }
+                  },
+                  "start": {
+                    "type": "text",
+                    "analyzer": "english_and_german"
+                  },
+                  "title": {
+                    "type": "text",
+                    "analyzer": "english_and_german"
+                  }
+                }
+              },
+              "honors_awards": {
+                "type": "nested",
+                "properties": {
+                  "date": {
+                    "type": "text",
+                    "analyzer": "english_and_german"
+                  },
+                  "description": {
+                    "type": "text",
+                    "analyzer": "english_and_german"
+                  },
+                  "organization": {
+                    "type": "text",
+                    "analyzer": "english_and_german"
+                  },
+                  "title": {
+                    "type": "text",
+                    "analyzer": "english_and_german"
+                  }
+                },
+                "industry": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "interests": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "languages": {
+                  "type": "nested",
+                  "properties": {
+                    "name": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "proficiency": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    }
+                  }
+                },
+                "locality": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "num_connections": {
+                  "type": "keyword"
+                },
+                "organizations": {
+                  "type": "nested",
+                  "properties": {
+                    "end": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "name": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "position": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "start": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "summary": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    }
+                  }
+                },
+                "patents": {
+                  "type": "nested",
+                  "properties": {
+                    "country": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "description": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "number": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "title": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "url": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "skills": {
+                  "type": "text",
+                  "analyzer": "english_and_german"
+                },
+                "test_scores": {
+                  "type": "nested",
+                  "properties": {
+                    "date": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "description": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "score": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "title": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    }
+                  }
+                },
+                "unique_id": {
+                  "type": "keyword"
+                },
+                "volunteering": {
+                  "type": "nested",
+                  "properties": {
+                    "cause": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "causes": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "description": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "duration": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "end": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "opportunities": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "organization": {
+                      "type": "nested",
+                      "properties": {
+                        "name": {
+                          "type": "text",
+                          "analyzer": "english_and_german"
+                        }
+                      }
+                    },
+                    "start": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    },
+                    "title": {
+                      "type": "text",
+                      "analyzer": "english_and_german"
+                    }
+                  }
+                }
+              }
+            },
+            "source": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "tags": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}

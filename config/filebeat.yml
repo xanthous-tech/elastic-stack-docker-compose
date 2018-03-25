@@ -8,15 +8,8 @@ filebeat.idle_timeout: 30s
 filebeat.prospectors:
 - input_type: log
   paths:
-    - /mnt/log/demo_elastic_search.jl
-  multiline.pattern: '^{'
-  multiline.negate: true
-  multiline.match:  after
-  processors:
-    - decode_json_fields:
-        fields: ['message']
-        target: json
-  tags: ["cv"]  ## tags for the records
+    - /mnt/log/demo_es.jl
+  tags: ["profile"]  ## tags for the records
   # fields:
   #   instance_id: "test_instance" ## add extra metadata
 
