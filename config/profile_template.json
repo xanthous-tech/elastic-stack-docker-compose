@@ -170,6 +170,7 @@
           }
         },
         "raw": {
+          "type": "nested",
           "properties": {
             "certifications": {
               "type": "nested",

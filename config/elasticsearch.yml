@@ -18,3 +18,9 @@ indices.fielddata.cache.size: 20%
 thread_pool.bulk.queue_size: 3000
 
 action.destructive_requires_name: true
+
+# http config
+http.cors.enabled : true
+http.cors.allow-origin : "*"
+http.cors.allow-methods : OPTIONS, HEAD, GET, POST, PUT, DELETE
+http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length
