@@ -5,12 +5,20 @@ queue.mem.events: 2048
 
 # https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html
 filebeat.prospectors:
-- input_type: log
-  paths:
-    - /mnt/log/export_elastic_profiles.jl
-  tags: ["candidates"]  ## tags for the records
-  # fields:
-  #   instance_id: "test_instance" ## add extra metadata
+  - input_type: log
+    paths:
+      - /mnt/log/export_elastic_profiles.jl
+    tags: ["candidates"]  ## tags for the records
+    # fields:
+    #   instance_id: "test_instance" ## add extra metadata
+
+processors:
+  - decode_json_fields:
+    fields: ["message"]
+    process_array: true
+    max_depth: 5
+    target: ""
+    overwrite_keys: false
 
 # # https://www.elastic.co/guide/en/beats/filebeat/current/logstash-output.html
 # output.logstash:
