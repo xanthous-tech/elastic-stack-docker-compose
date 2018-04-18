@@ -51,7 +51,7 @@ services:
 volumes:
   filebeatdata:
     driver: local
-  logstashdata:
-    driver: local
-  esdata:
-    driver: local
+  # logstashdata:
+  #   driver: local
+  # esdata:
+  #   driver: local

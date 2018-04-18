@@ -26,3 +26,4 @@ processors:
 
 output.elasticsearch:
   hosts: ["http://35.198.117.124:9200"]
+  index: "raw-candidates"
