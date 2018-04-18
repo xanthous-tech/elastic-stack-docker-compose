@@ -1,7 +1,7 @@
 version: "2"
 services:
   filebeat:
-    image: "docker.elastic.co/beats/filebeat:5.5.1"
+    image: "docker.elastic.co/beats/filebeat:6.2.2"
     volumes:
      - ./config/filebeat.yml:/usr/share/filebeat/filebeat.yml
      - filebeatdata:/usr/share/filebeat/data ## mounting paths for persistent data (log progress etc)
@@ -9,7 +9,7 @@ services:
     depends_on:
       - logstash
   logstash:
-    image: "docker.elastic.co/logstash/logstash:5.5.1"
+    image: "docker.elastic.co/logstash/logstash:6.2.2"
     volumes:
       - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./config/profile_template.json:/usr/share/logstash/config/profile_template.json
