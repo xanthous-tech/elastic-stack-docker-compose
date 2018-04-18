@@ -1,8 +1,7 @@
 # https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-configuration-details.html
 
 # https://www.elastic.co/guide/en/beats/filebeat/current/configuration-global-options.html
-filebeat.spool_size: 2048
-filebeat.idle_timeout: 30s
+queue.mem.events: 2048
 
 # https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html
 filebeat.prospectors:
