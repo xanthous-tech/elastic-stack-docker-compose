@@ -14,11 +14,11 @@ filebeat.prospectors:
 
 processors:
   - decode_json_fields:
-    fields: ["message"]
-    process_array: true
-    max_depth: 5
-    target: ""
-    overwrite_keys: false
+      fields: ["message"]
+      process_array: true
+      max_depth: 5
+      target: ""
+      overwrite_keys: false
 
 # # https://www.elastic.co/guide/en/beats/filebeat/current/logstash-output.html
 # output.logstash:
