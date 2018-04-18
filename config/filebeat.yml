@@ -8,8 +8,8 @@ filebeat.idle_timeout: 30s
 filebeat.prospectors:
 - input_type: log
   paths:
-    - /mnt/log/demo_es.jl
-  tags: ["profile"]  ## tags for the records
+    - /mnt/log/export_elastic_profiles.jl
+  tags: ["candidates"]  ## tags for the records
   # fields:
   #   instance_id: "test_instance" ## add extra metadata
 

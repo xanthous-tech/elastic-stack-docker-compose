@@ -21,33 +21,33 @@ services:
       - 5044:5044  ## this is exposing beats input server tcp port
       - 9600:9600  ## this is the metrics endpoint port
     mem_limit: 1g
-    depends_on:
-      - elasticsearch
-  kibana:
-    image: "docker.elastic.co/kibana/kibana:5.5.1"
-    ports:
-      - 5601:5601
-    volumes:
-      - ./config/kibana.yml:/usr/share/kibana/config/kibana.yml
-    depends_on:
-      - elasticsearch
-  elasticsearch:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:5.5.1"
-    ports:
-      - 9200:9200
-    volumes:
-      ## we can also use environment variables to configure, so this config file will serve as a common base, then we use env vars to config each instance
-      # - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      ## mounting paths on host machine for persistent data
-      - esdata:/usr/share/elasticsearch/data
-    environment:
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"  ## setting jvm heap memory limits, based on the type of nodes (master, data, etc.), you can tweak this to optimize resource usage vs. performance
-      - node.name=es-master ## node name needs to be unique, so setting it in env vars
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    mem_limit: 1g  ## this memory setting is recommended to be at least 2x the java heap size settings above
+    # depends_on:
+    #   - elasticsearch
+  # kibana:
+  #   image: "docker.elastic.co/kibana/kibana:5.5.1"
+  #   ports:
+  #     - 5601:5601
+  #   volumes:
+  #     - ./config/kibana.yml:/usr/share/kibana/config/kibana.yml
+  #   depends_on:
+  #     - elasticsearch
+  # elasticsearch:
+  #   image: "docker.elastic.co/elasticsearch/elasticsearch:5.5.1"
+  #   ports:
+  #     - 9200:9200
+  #   volumes:
+  #     ## we can also use environment variables to configure, so this config file will serve as a common base, then we use env vars to config each instance
+  #     # - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  #     ## mounting paths on host machine for persistent data
+  #     - esdata:/usr/share/elasticsearch/data
+  #   environment:
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"  ## setting jvm heap memory limits, based on the type of nodes (master, data, etc.), you can tweak this to optimize resource usage vs. performance
+  #     - node.name=es-master ## node name needs to be unique, so setting it in env vars
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   mem_limit: 1g  ## this memory setting is recommended to be at least 2x the java heap size settings above
 volumes:
   filebeatdata:
     driver: local
