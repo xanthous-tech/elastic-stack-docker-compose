@@ -2,6 +2,7 @@
 
 # https://www.elastic.co/guide/en/beats/filebeat/current/configuration-global-options.html
 queue.mem.events: 2048
+setup.template.enabled: false
 
 # https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html
 filebeat.prospectors:
