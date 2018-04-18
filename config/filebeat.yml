@@ -8,9 +8,14 @@ filebeat.prospectors:
   - input_type: log
     paths:
       - /mnt/log/export_elastic_profiles.jl
-    tags: ["candidates"]  ## tags for the records
-    # fields:
-    #   instance_id: "test_instance" ## add extra metadata
+    # tags: ["candidates"]  ## tags for the records
+    fields:
+      table: "candidates" ## add extra metadata
+  - input_type: log
+    paths: 
+      - /mnt/log/export_elastic_companies.jl
+    fields:
+      table: "companies"
 
 processors:
   - decode_json_fields:
@@ -26,4 +31,4 @@ processors:
 
 output.elasticsearch:
   hosts: ["http://35.198.117.124:9200"]
-  index: "raw-candidates"
+  index: "raw-%{[fields.table]}"
