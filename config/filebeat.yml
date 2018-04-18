@@ -12,6 +12,9 @@ filebeat.prospectors:
   # fields:
   #   instance_id: "test_instance" ## add extra metadata
 
-# https://www.elastic.co/guide/en/beats/filebeat/current/logstash-output.html
-output.logstash:
-  hosts: ["logstash:5044"]
+# # https://www.elastic.co/guide/en/beats/filebeat/current/logstash-output.html
+# output.logstash:
+#   hosts: ["logstash:5044"]
+
+output.elasticsearch:
+  hosts: ["http://35.198.117.124:9200"]

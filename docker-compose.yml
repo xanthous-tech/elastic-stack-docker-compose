@@ -6,21 +6,21 @@ services:
      - ./config/filebeat.yml:/usr/share/filebeat/filebeat.yml
      - filebeatdata:/usr/share/filebeat/data ## mounting paths for persistent data (log progress etc)
      - ./logs:/mnt/log  ## this is the logs volume path, just to stick with the original
-    depends_on:
-      - logstash
-  logstash:
-    image: "docker.elastic.co/logstash/logstash:6.2.2"
-    volumes:
-      - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml
-      - ./config/profile_template.json:/usr/share/logstash/config/profile_template.json
-      - ./config/logstash-pipeline:/usr/share/logstash/pipeline/  ## this is the pipeline config location
-      - logstashdata:/usr/share/logstash/data
-    environment:
-      - "LS_HEAP_SIZE=-Xms512m -Xmx512m"
-    ports:
-      - 5044:5044  ## this is exposing beats input server tcp port
-      - 9600:9600  ## this is the metrics endpoint port
-    mem_limit: 1g
+  #   depends_on:
+  #     - logstash
+  # logstash:
+  #   image: "docker.elastic.co/logstash/logstash:6.2.2"
+  #   volumes:
+  #     - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml
+  #     - ./config/profile_template.json:/usr/share/logstash/config/profile_template.json
+  #     - ./config/logstash-pipeline:/usr/share/logstash/pipeline/  ## this is the pipeline config location
+  #     - logstashdata:/usr/share/logstash/data
+  #   environment:
+  #     - "LS_HEAP_SIZE=-Xms512m -Xmx512m"
+  #   ports:
+  #     - 5044:5044  ## this is exposing beats input server tcp port
+  #     - 9600:9600  ## this is the metrics endpoint port
+  #   mem_limit: 1g
     # depends_on:
     #   - elasticsearch
   # kibana:
