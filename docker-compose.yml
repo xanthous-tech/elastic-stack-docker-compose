@@ -1,29 +1,34 @@
-version: "2"
+version: "3.2"
 services:
-  filebeat:
-    image: "docker.elastic.co/beats/filebeat:5.5.1"
-    volumes:
-     - ./config/filebeat.yml:/usr/share/filebeat/filebeat.yml
-     - filebeatdata:/usr/share/filebeat/data ## mounting paths for persistent data (log progress etc)
-     - ./logs:/mnt/log  ## this is the logs volume path, just to stick with the original
-    depends_on:
-      - logstash
+  # filebeat:
+  #   image: "docker.elastic.co/beats/filebeat:5.5.1"
+  #   volumes:
+  #    - ./config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+  #    - filebeatdata:/usr/share/filebeat/data ## mounting paths for persistent data (log progress etc)
+  #    - ./logs:/mnt/log  ## this is the logs volume path, just to stick with the original
+  #   depends_on:
+  #     - logstash
   logstash:
-    image: "docker.elastic.co/logstash/logstash:5.5.1"
+    image: "docker.elastic.co/logstash/logstash:7.2.0"
     volumes:
       - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./config/logstash-pipelines.yml:/usr/share/logstash/config/pipelines.yml
       - ./config/logstash-pipeline:/usr/share/logstash/pipeline/  ## this is the pipeline config location
+      - ./logs:/mnt/logs  ## this is the logs volume path, just to stick with the original
       - logstashdata:/usr/share/logstash/data
     environment:
       - "LS_HEAP_SIZE=-Xms512m -Xmx512m"
+    # command: bin/logstash -f pipeline/logstash.conf
     ports:
-      - 5044:5044  ## this is exposing beats input server tcp port
       - 9600:9600  ## this is the metrics endpoint port
-    mem_limit: 1g
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
     depends_on:
       - elasticsearch
   kibana:
-    image: "docker.elastic.co/kibana/kibana:5.5.1"
+    image: "docker.elastic.co/kibana/kibana:7.2.0"
     ports:
       - 5601:5601
     volumes:
@@ -31,12 +36,13 @@ services:
     depends_on:
       - elasticsearch
   elasticsearch:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:5.5.1"
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.2.0"
     ports:
       - 9200:9200
     volumes:
       ## we can also use environment variables to configure, so this config file will serve as a common base, then we use env vars to config each instance
-      # - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./config/elasticsearch-ik-plugin:/usr/share/elasticsearch/plugins/ik
       ## mounting paths on host machine for persistent data
       - esdata:/usr/share/elasticsearch/data
     environment:
@@ -46,7 +52,10 @@ services:
       memlock:
         soft: -1
         hard: -1
-    mem_limit: 1g  ## this memory setting is recommended to be at least 2x the java heap size settings above
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
 volumes:
   filebeatdata:
     driver: local

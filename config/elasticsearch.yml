@@ -7,6 +7,8 @@ network.host: 0.0.0.0
 bootstrap.memory_lock: true
 
 discovery.zen.minimum_master_nodes: 1
+cluster.initial_master_nodes:
+  - es-master
 
 ## below are some of the options I used to use for performance tuning
 ## TODO: make sure to find the corresponding documentation on below configs
@@ -15,6 +17,6 @@ discovery.zen.minimum_master_nodes: 1
 indices.fielddata.cache.size: 20%
 
 #index
-thread_pool.bulk.queue_size: 3000
+thread_pool.write.queue_size: 3000
 
 action.destructive_requires_name: true

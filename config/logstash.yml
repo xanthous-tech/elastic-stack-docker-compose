@@ -1,12 +1,20 @@
 # https://www.elastic.co/guide/en/logstash/current/logstash-settings-file.html
 
 http.host: "0.0.0.0"
-path.config: /usr/share/logstash/pipeline
-xpack.monitoring.elasticsearch.url: http://elasticsearch:9200
-xpack.monitoring.elasticsearch.username: logstash_system
-xpack.monitoring.elasticsearch.password: changeme
+
+xpack.monitoring:
+  enabled: true
+  elasticsearch:
+    hosts:
+      - http://elasticsearch:9200
+    username: logstash_system
+    password: changeme
 
 pipeline:
   batch:
     size: 1000
     delay: 10
+
+config:
+  debug: true
+  reload.automatic: true
